@@ -16,10 +16,10 @@ import Model.Data_user;
 
 public class data_RV_Adapter extends RecyclerView.Adapter<data_RV_Adapter.MainViewHolder> {
 
-    private ArrayList<Data_user> data_user;
+    private ArrayList<Data_user> data_adapter = new ArrayList<>();
 
-    public data_RV_Adapter(ArrayList<Data_user> data_user) {
-        this.data_user = data_user;
+    public data_RV_Adapter(ArrayList<Data_user> data_adapter) {
+        this.data_adapter = data_adapter;
     }
 
     @NonNull
@@ -33,22 +33,21 @@ public class data_RV_Adapter extends RecyclerView.Adapter<data_RV_Adapter.MainVi
 
     @Override
     public void onBindViewHolder(data_RV_Adapter.MainViewHolder holder, int position) {
-        holder.Name_textView.setText(data_user.get(position).getNama());
-        holder.Age_textView.setText(data_user.get(position).getUmur());
-        holder.Address_textView.setText(data_user.get(position).getAlamat());
+        holder.Name_textView.setText(data_adapter.get(position).getNama());
+        holder.Age_textView.setText(data_adapter.get(position).getUmur());
+        holder.Address_textView.setText(data_adapter.get(position).getAlamat());
 
     }
 
     @Override
     public int getItemCount() {
-        return data_user.size();
+        return data_adapter.size();
     }
 
 
     public class MainViewHolder extends RecyclerView.ViewHolder{
 
         private TextView Name_textView, Age_textView, Address_textView;
-        private Button button_edit;
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,10 +60,14 @@ public class data_RV_Adapter extends RecyclerView.Adapter<data_RV_Adapter.MainVi
                 @Override
                 public void onClick(View view) {
 
+                    String Name = Name_textView.getText().toString().trim();
+                    String Age = Age_textView.getText().toString().trim();
+                    String Address = Address_textView.getText().toString().trim();
+
                     Intent intent = new Intent(view.getContext(),Profile.class);
-                    intent.putExtra("Name", Name_textView.getText() );
-                    intent.putExtra("Age", Age_textView.getText() );
-                    intent.putExtra("Address", Address_textView.getText() );
+                    Data_user profile = new Data_user(Name, Age, Address);
+                    intent.putExtra("array_data-show", profile);
+                    intent.putExtra("index", getAdapterPosition());
                     view.getContext().startActivity(intent);
 
                 }
