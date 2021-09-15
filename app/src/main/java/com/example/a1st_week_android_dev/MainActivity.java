@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView main_recyclerView;
     private FloatingActionButton main_floatingActionButton;
+    private TextView textView_nodata;
     public static ArrayList<Data_user> data_user;
 
     private data_RV_Adapter adapter;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         int title = intent.getIntExtra("title", 1);
 
         if(data_baru != null){
+            textView_nodata.setVisibility(View.GONE);
             if(title == 1){
                 data_user.add(data_baru);
                 adapter.notifyDataSetChanged();
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 data_user.set(index2, data_baru);
                 adapter.notifyDataSetChanged();
             }
+
+        }else{
+            textView_nodata.setVisibility(View.VISIBLE);
 
         }
 
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView(){
         main_recyclerView = findViewById(R.id.main_recyclerView);
         main_floatingActionButton = findViewById(R.id.main_floatingActionButton);
+        textView_nodata = findViewById(R.id.textView_nodata);
         data_user = array_data.array;
         adapter = new data_RV_Adapter(data_user);
     }

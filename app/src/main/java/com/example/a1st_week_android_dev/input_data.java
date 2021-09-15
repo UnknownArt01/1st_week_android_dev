@@ -54,7 +54,10 @@ public class input_data extends AppCompatActivity {
             Name_textInputLayout.getEditText().setText(intent.getStringExtra("name"));
             Age_textInputLayout.getEditText().setText(intent.getStringExtra("age"));
             Address_textInputLayout.getEditText().setText(intent.getStringExtra("address"));
+            Pencet_button.setText("Update data");
 
+        }else{
+            Pencet_button.setText("Save");
         }
 
 
